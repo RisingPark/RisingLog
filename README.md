@@ -1,6 +1,6 @@
 # RisingLog
 
-Just Simple logger for android
+Simple logger for android
 
 ## Usage
 
