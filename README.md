@@ -1,6 +1,6 @@
 # RisingLog
 
-Simple Log for android
+Simple Log for android. Pretty json, default tag, debug Mode, show name of class and method.
 
 ## Usage
 
