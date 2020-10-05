@@ -11,9 +11,9 @@ import java.lang.Character.LINE_SEPARATOR
 
 class RisingLog {
     companion object{
-        var TAG = "RisingLog";
-        var isDebug = true;
-        var isShowClassMethod = true;
+        @JvmStatic var TAG = "RisingLog";
+        @JvmStatic var isDebug = true;
+        @JvmStatic var isShowClassMethod = true;
 
 
         @JvmStatic
