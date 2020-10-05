@@ -1,6 +1,6 @@
 # RisingLog
 
-Simple logger for android
+Simple Log for android
 
 ## Usage
 
@@ -29,6 +29,15 @@ dependencies {
 
 ### In code
 
+(option) Initialize in Kotlin
+```kotlin
+RisingLog.apply {
+            TAG = "RisingLog"
+            isDebug = true
+            isShowClassMethod = true
+        }
+```
+
 Use
 ```kotlin
 RisingLog.d("debug")
@@ -43,13 +52,10 @@ Method for tag
 RisingLog.d("TAG","Hello RisingLog")
 ```
 
-(option) Initialize in Kotlin
+Pretty Json
 ```kotlin
-RisingLog.apply {
-            TAG = "RisingLog"
-            isDebug = true
-            isShowClassMethod = true
-        }
+val jsonStr = "{\"json-array\": [{\"key\": \"value\"} ], \"json-object\": {\"key\": \"value\"} }"
+RisingLog.j(jsonString)
 ```
 
 
