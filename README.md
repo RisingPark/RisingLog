@@ -23,7 +23,7 @@ dependencies {
 ### Attributes
 |Attributes|format|describe
 |---|---|---|
-|TAG|string| logging tag
+|TAG|string| logging tag(default = RisingLog)
 |isDebug|boolean| debug mode(default = true)
 |isShowClassMethod|boolean| show name of Class And Method(default = true)
 
