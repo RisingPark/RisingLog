@@ -16,84 +16,100 @@ class RisingLog {
         var isShowClassMethod = true;
 
 
+        @JvmStatic
         fun v(msg: String) {
             v(TAG, msg)
         }
 
+        @JvmStatic
         fun v(tag: String, msg: String) {
             if(isDebug) Log.v(tag, getLogMsg(msg))
         }
 
+        @JvmStatic
         fun d(msg: String) {
             d(TAG, msg)
         }
 
+        @JvmStatic
         fun d(tag: String, msg: String) {
             if(isDebug) Log.d(tag, getLogMsg(msg))
         }
 
+        @JvmStatic
         fun i(msg: String) {
             i(TAG, msg)
         }
 
+        @JvmStatic
         fun i(tag: String, msg: String) {
             if(isDebug) Log.i(tag, getLogMsg(msg))
         }
 
+        @JvmStatic
         fun e(msg: String) {
             e(TAG, msg)
         }
 
+        @JvmStatic
         fun e(tag: String, msg: String) {
             if(isDebug) Log.e(tag, getLogMsg(msg))
         }
 
+        @JvmStatic
         fun w(msg: String) {
             w(TAG, msg)
         }
 
+        @JvmStatic
         fun w(tag: String, msg: String) {
             if(isDebug) Log.w(tag, getLogMsg(msg))
         }
 
+        @JvmStatic
         fun j(msg: String) {
             j(TAG, msg)
         }
 
+        @JvmStatic
         fun j(tag: String, msg: String) {
             if (isDebug) {
-                if (TextUtils.isEmpty(msg)) {
-                    Log.d(tag, msg)
-                } else {
-                    val message: String
-                    message = try {
-                        when {
-                            msg.startsWith("{") -> {
-                                val jsonObject = JSONObject(msg)
-                                jsonObject.toString(4)
-                            }
-                            msg.startsWith("[") -> {
-                                val jsonArray = JSONArray(msg)
-                                jsonArray.toString(4)
-                            }
-                            else -> msg
-                        }
-                    } catch (e: JSONException) {
-                        e.printStackTrace()
-                        msg
-                    }
-
-                    Log.d(tag, "╔═══════════════════════════════════════════════════════════════════════════════════════")
-                    val lines = message.split("\n".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-                    for (line in lines) {
-                        Log.d( tag, "║ $line")
-                    }
-                    Log.d(tag, "╚═══════════════════════════════════════════════════════════════════════════════════════")
-                }
+                showPrettyJson(tag, msg)
             }
         }
 
-        fun getLogMsg(message: String?): String {
+        private fun showPrettyJson(tag: String, msg: String){
+            if (TextUtils.isEmpty(msg)) {
+                Log.d(tag, msg)
+            } else {
+                val message: String
+                message = try {
+                    when {
+                        msg.startsWith("{") -> {
+                            val jsonObject = JSONObject(msg)
+                            jsonObject.toString(4)
+                        }
+                        msg.startsWith("[") -> {
+                            val jsonArray = JSONArray(msg)
+                            jsonArray.toString(4)
+                        }
+                        else -> msg
+                    }
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                    msg
+                }
+
+                Log.d(tag, "╔═══════════════════════════════════════════════════════════════════════════════════════")
+                val lines = message.split("\n".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+                for (line in lines) {
+                    Log.d( tag, "║ $line")
+                }
+                Log.d(tag, "╚═══════════════════════════════════════════════════════════════════════════════════════")
+            }
+        }
+
+        private fun getLogMsg(message: String?): String {
             if (isShowClassMethod){
                 try {
                     val info = Thread.currentThread().stackTrace[4]
