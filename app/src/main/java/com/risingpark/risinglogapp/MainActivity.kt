@@ -10,9 +10,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         RisingLog.apply {
-            TAG = "test"
+            TAG = "RisingLog"
+            isDebug = true
+            isShowClassMethod = true
         }
 
-        RisingLog.d("hihihi")
+        RisingLog.d("Hello RisingLog")
+        RisingLog.d("TAG","Hello RisingLog")
     }
 }

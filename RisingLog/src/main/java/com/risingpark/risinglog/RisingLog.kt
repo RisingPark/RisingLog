@@ -1,11 +1,13 @@
 package com.risingpark.risinglog
 
 import android.util.Log
+import java.lang.Exception
 
 class RisingLog {
     companion object{
         var TAG = "RisingLog";
         var isDebug = true;
+        var isShowClassMethod = true;
 
         fun v(msg: String) {
             if(isDebug) Log.v(TAG, getLogMsg(msg))
@@ -48,18 +50,22 @@ class RisingLog {
         }
 
         fun getLogMsg(message: String?): String {
-            return try{
-                val info = Thread.currentThread().stackTrace[4]
-                val sb = StringBuilder()
-                sb.append("[")
-                sb.append(info.fileName.replace(".java", "").replace(".kt", ""))
-                sb.append("::")
-                sb.append(info.methodName)
-                sb.append("]")
-                sb.append(message)
-                sb.toString()
-            } catch (e: Exception){
-                message.toString()
+            if (isShowClassMethod){
+                try {
+                    val info = Thread.currentThread().stackTrace[4]
+                    val sb = StringBuilder()
+                    sb.append("[")
+                    sb.append(info.fileName.replace(".java", "").replace(".kt", ""))
+                    sb.append("::")
+                    sb.append(info.methodName)
+                    sb.append("]")
+                    sb.append(message)
+                    return sb.toString()
+                } catch (e: Exception){
+                    return message.toString()
+                }
+            } else {
+                return message.toString()
             }
         }
     }
