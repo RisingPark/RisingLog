@@ -31,7 +31,11 @@ dependencies {
 
 Use
 ```kotlin
-RisingLog.d("Hello RisingLog")
+RisingLog.d("debug")
+RisingLog.e("error")
+RisingLog.w("warning")
+RisingLog.i("information")
+RisingLog.v("verbose")
 ```
 
 Method for tag
