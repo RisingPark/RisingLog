@@ -1,7 +1,13 @@
 package com.risingpark.risinglog
 
+import android.R.attr.tag
+import android.text.TextUtils
 import android.util.Log
-import java.lang.Exception
+import org.json.JSONArray
+import org.json.JSONException
+import org.json.JSONObject
+import java.lang.Character.LINE_SEPARATOR
+
 
 class RisingLog {
     companion object{
@@ -9,8 +15,9 @@ class RisingLog {
         var isDebug = true;
         var isShowClassMethod = true;
 
+
         fun v(msg: String) {
-            if(isDebug) Log.v(TAG, getLogMsg(msg))
+            v(TAG, msg)
         }
 
         fun v(tag: String, msg: String) {
@@ -18,7 +25,7 @@ class RisingLog {
         }
 
         fun d(msg: String) {
-            if(isDebug) Log.d(TAG, getLogMsg(msg))
+            d(TAG, msg)
         }
 
         fun d(tag: String, msg: String) {
@@ -26,7 +33,7 @@ class RisingLog {
         }
 
         fun i(msg: String) {
-            if(isDebug) Log.i(TAG, getLogMsg(msg))
+            i(TAG, msg)
         }
 
         fun i(tag: String, msg: String) {
@@ -34,7 +41,7 @@ class RisingLog {
         }
 
         fun e(msg: String) {
-            if(isDebug) Log.e(TAG, getLogMsg(msg))
+            e(TAG, msg)
         }
 
         fun e(tag: String, msg: String) {
@@ -42,11 +49,48 @@ class RisingLog {
         }
 
         fun w(msg: String) {
-            if(isDebug) Log.w(TAG, getLogMsg(msg))
+            w(TAG, msg)
         }
 
         fun w(tag: String, msg: String) {
             if(isDebug) Log.w(tag, getLogMsg(msg))
+        }
+
+        fun j(msg: String) {
+            j(TAG, msg)
+        }
+
+        fun j(tag: String, msg: String) {
+            if (isDebug) {
+                if (TextUtils.isEmpty(msg)) {
+                    Log.d(tag, msg)
+                } else {
+                    val message: String
+                    message = try {
+                        when {
+                            msg.startsWith("{") -> {
+                                val jsonObject = JSONObject(msg)
+                                jsonObject.toString(4)
+                            }
+                            msg.startsWith("[") -> {
+                                val jsonArray = JSONArray(msg)
+                                jsonArray.toString(4)
+                            }
+                            else -> msg
+                        }
+                    } catch (e: JSONException) {
+                        e.printStackTrace()
+                        msg
+                    }
+
+                    Log.d(tag, "╔═══════════════════════════════════════════════════════════════════════════════════════")
+                    val lines = message.split("\n".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+                    for (line in lines) {
+                        Log.d( tag, "║ $line")
+                    }
+                    Log.d(tag, "╚═══════════════════════════════════════════════════════════════════════════════════════")
+                }
+            }
         }
 
         fun getLogMsg(message: String?): String {

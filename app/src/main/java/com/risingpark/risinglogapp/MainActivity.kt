@@ -16,6 +16,9 @@ class MainActivity : AppCompatActivity() {
         }
 
         RisingLog.d("Hello RisingLog")
-        RisingLog.d("TAG","Hello RisingLog")
+        RisingLog.e("TAG","Hello RisingLog")
+
+        val jsonStr = "{\"json-array\": [{\"key\": \"value\"} ], \"json-object\": {\"key\": \"value\"} }"
+        RisingLog.j(jsonStr)
     }
 }
